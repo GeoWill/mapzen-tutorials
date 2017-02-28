@@ -1,0 +1,29 @@
+import: https://mapzen.com/carto/refill-style/4/refill-style.yaml
+
+sources:
+	_nps_boundary:
+		type: GeoJSON
+		url: https://gist.githubusercontent.com/rfriberg/684645c22f495b4a46f29fb312b6d268/raw/843ed38a3920ed199082636fe198ba995f5cfc04/san_juan_nhp.geojson
+
+	_nps_geology:
+		type: GeoJSON
+		url: https://gist.githubusercontent.com/rfriberg/3c09fe3afd642224da7cd70aff1c1e70/raw/1f1df59f4cb4e82d7ea23452c789bc99c299a5cb/san_juan_nhp_geology.geojson
+
+layers:
+	_national_park:
+		data: { source: _nps_boundary }
+		draw:
+			lines:
+				visible: false
+				width: [[8, 0.5px], [18, 5px]]
+				color: '#518946'
+				order: global.sdk_order_under_roads_1
+
+	_geology:
+		data: { source: _nps_geology }
+		filter:
+			not: { GLG_SYM: water }
+		draw:
+			polygons:
+				order: global.sdk_order_under_roads_0
+				color: red
